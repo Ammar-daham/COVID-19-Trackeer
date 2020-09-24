@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--adding item to show in bottom navigation bar-->
+    <item android:id="@+id/nav_tilasto"
+        android:title="Tilasto"
+        android:icon="@drawable/ic_baseline_tilasto"/>
+
+    <item android:id="@+id/nav_ohjeet"
+        android:title="Ohjeet"
+        android:icon="@drawable/ic_baseline_ohjeet"/>
+</menu>
