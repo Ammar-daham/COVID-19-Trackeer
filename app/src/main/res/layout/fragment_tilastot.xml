@@ -11,9 +11,11 @@
     <LinearLayout
         android:id="@+id/kuolimat"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_marginTop="400dp"
-        android:gravity="center">
+        android:layout_height="70dp"
+        android:layout_marginTop="390dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:background="@color/gray">
 
         <ImageView
             android:layout_width="30dp"
@@ -48,8 +50,10 @@
         android:id="@+id/aktiiviset"
         android:layout_below="@id/kuolimat"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:gravity="center">
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:background="@color/gray">
 
         <ImageView
             android:layout_width="30dp"
@@ -83,8 +87,10 @@
     <LinearLayout
         android:layout_below="@id/aktiiviset"
         android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:gravity="center">
+        android:layout_height="70dp"
+        android:gravity="center"
+        android:padding="15dp"
+        android:background="@color/gray">
 
         <ImageView
             android:layout_width="30dp"
