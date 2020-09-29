@@ -7,9 +7,13 @@ import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
@@ -31,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         titleTv = findViewById(R.id.titleTv);
         navigationView = findViewById(R.id.navigationView);
 
+
+
         initFragments();
-
-
         navigationView.setOnNavigationItemSelectedListener(this);
     }
 
@@ -80,4 +84,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
         return false;
     }
+
+
 }

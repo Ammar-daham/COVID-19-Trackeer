@@ -19,11 +19,12 @@
             android:layout_width="300dp"
             android:layout_height="50dp"
             android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"/>
+            android:layout_marginEnd="50dp"
+            />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/yhteensa"
+        android:id="@+id/All"
         android:layout_below="@id/action_bar_spinner"
         android:layout_width="match_parent"
         android:layout_height="50dp">
@@ -42,11 +43,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_below="@id/yhteensa"
+        android:layout_below="@id/All"
         android:layout_width="match_parent"
         android:layout_height="50dp">
     <TextView
-        android:id="@+id/textViAll"
+        android:id="@+id/allTv"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
@@ -75,12 +76,12 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
             android:layout_marginStart="8dp"
-            android:text="Kuolimat"
+            android:text="Kuolemat"
             android:textSize="16sp"/>
 
 
         <TextView
-            android:id="@+id/kuolimatValue"
+            android:id="@+id/kuolematValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
