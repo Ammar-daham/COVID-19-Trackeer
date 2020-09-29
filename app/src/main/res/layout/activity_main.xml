@@ -34,8 +34,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolBar"
-        android:layout_marginBottom="60sp"/>
+        android:layout_marginBottom="48sp">
 
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/coronavirus"
+            android:layout_marginTop="40dp"/>
+
+    </FrameLayout>
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -46,7 +54,5 @@
         android:background="@color/lightGreen"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_buttom"/>
-
-
 
 </RelativeLayout>
