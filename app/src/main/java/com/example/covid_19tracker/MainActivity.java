@@ -5,26 +5,33 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity {
 
     //UI Views
-    private TextView titleTv;
-    private BottomNavigationView navigationView;
-
-    //fragments
-    private Fragment tilastotFragment, ohjeetFragment;
-    private Fragment activeFragment;
-    private FragmentManager fragmentManager;
+    TextView all, kuolematValue, atiivisetValue,toipuneetValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,57 +39,49 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         setContentView(R.layout.activity_main);
 
         //init UI Views
-        titleTv = findViewById(R.id.titleTv);
-        navigationView = findViewById(R.id.navigationView);
+        all = findViewById(R.id.allTv);
+        kuolematValue = findViewById(R.id.kuolematValue);
+        atiivisetValue = findViewById(R.id.AtiivisetValue);
+        toipuneetValue = findViewById(R.id.ToipuneetValue);
 
+        fetchdata();
 
-
-        initFragments();
-        navigationView.setOnNavigationItemSelectedListener(this);
     }
 
-    private void initFragments() {
-        //init fragments
-        tilastotFragment = new TilastotFragment();
-        ohjeetFragment = new OhjeetFragment();
+    private void fetchdata() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "https://corona.lmao.ninja/v2/all";
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
 
-        fragmentManager = getSupportFragmentManager();
-        activeFragment = tilastotFragment;
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.toString());
+                    all.setText(jsonObject.getString("cases"));
+                    toipuneetValue.setText(jsonObject.getString("recovered"));
+                    atiivisetValue.setText(jsonObject.getString("active"));
+                    kuolematValue.setText(jsonObject.getString("deaths"));
 
-        fragmentManager.beginTransaction()
-                .add(R.id.frame, tilastotFragment, "tilastotFragment")
-                .commit();
-        fragmentManager.beginTransaction()
-                .add(R.id.frame, ohjeetFragment, "ohjeetFragment")
-                .hide(ohjeetFragment)
-                .commit();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
+
     }
 
-    private void loadTilastotFragment(){
-        titleTv.setText("Tilasto");
-        fragmentManager.beginTransaction().hide(activeFragment).show(tilastotFragment).commit();
-        activeFragment = tilastotFragment;
-    }
-
-    private void loadOhjeetFragment(){
-        titleTv.setText("Ohjeet");
-        fragmentManager.beginTransaction().hide(activeFragment).show(ohjeetFragment).commit();
-        activeFragment = ohjeetFragment;
-    }
-
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        //handle bottom nav item clicks
-        switch (item.getItemId()){
-            case R.id.nav_tilasto:
-                loadTilastotFragment();
-                return true;
-            case R.id.nav_ohjeet:
-                loadOhjeetFragment();
-                return true;
-        }
-        return false;
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, OhjeetActivity.class);
+        startActivity(intent);
     }
 
 
