@@ -115,12 +115,13 @@
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
                     android:gravity="center_horizontal"
+                    android:onClick="MainActivity"
                     android:text=" Koronavirus tarttuu ihmiseen ilman välityksellä, kosketuksen välityksellä ja pisaratartuntana. Suosittelemme , että käytät kasvomaskia ja peset käsiä mahdollisimman usein. Koronaviruksen yleisimpiä oireita ovat muun muassa , kuume, kuiva yskä ja väsymys. Jos epäilet koronavirustartuntaa,täytä heti"
                     android:textAlignment="center"
-                    android:textSize="16sp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"/>
+                    android:textSize="16sp" />
 
             </LinearLayout>
         </ScrollView>
@@ -140,21 +141,32 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginStart="70dp"
-            android:text="Tilastot"
-            android:background="@color/lightGreen"
-            android:layout_marginLeft="70dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:background="@null"
             android:drawableTop="@drawable/ic_baseline_tilasto"
-            android:onClick="sendMessage"/>
+            android:onClick="MainActivity"
+            android:text="Tilastot" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginStart="250dp"
-            android:text="Ohjeet"
-            android:background="@color/lightGreen"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="70dp"
+            android:background="@null"
             android:drawableTop="@drawable/ic_baseline_ohjeet"
-            android:layout_marginLeft="70dp"/>
+            android:text="Ohjeet" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginStart="280dp"
+            android:layout_marginLeft="70dp"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_baseline_sairala"
+            android:onClick="LocationActivity"
+            android:text="Sairala" />
+
 
 
     </RelativeLayout>

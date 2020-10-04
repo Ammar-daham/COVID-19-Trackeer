@@ -31,26 +31,27 @@
     <!--framelayout: show fragments-->
 
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:src="@drawable/coronavirus"
-            android:layout_marginTop="40dp"/>
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/coronavirus"
+        android:layout_marginTop="100dp"/>
 
         <LinearLayout
             android:id="@+id/action_bar_spinner"
+            android:layout_centerHorizontal="true"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="200dp">
+            android:layout_marginTop="250dp">
 
             <Spinner
                 android:id="@+id/spinner"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="50dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginEnd="50dp"
-                />
+                android:layout_marginStart="90dp"
+                android:layout_marginEnd="90dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -92,7 +93,7 @@
             android:id="@+id/kuolimat"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="400dp"
             android:gravity="center"
             android:paddingStart="40dp"
             android:paddingLeft="40dp">
@@ -211,21 +212,31 @@
         <Button
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_marginStart="70dp"
+        android:layout_marginStart="40dp"
         android:text="Tilastot"
-            android:background="@color/lightGreen"
-        android:layout_marginLeft="70dp"
+            android:background="@null"
+        android:layout_marginLeft="40dp"
             android:drawableTop="@drawable/ic_baseline_tilasto"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginStart="250dp"
-            android:text="Ohjeet"
-            android:background="@color/lightGreen"
-            android:drawableTop="@drawable/ic_baseline_ohjeet"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="70dp"
-            android:onClick="sendMessage"/>
+            android:background="@null"
+            android:drawableTop="@drawable/ic_baseline_ohjeet"
+            android:onClick="OhjeetActivity"
+            android:text="Ohjeet" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="100dp"
+            android:layout_marginStart="280dp"
+            android:layout_marginLeft="70dp"
+            android:background="@null"
+            android:drawableTop="@drawable/ic_baseline_sairala"
+            android:onClick="LocationActivity"
+            android:text="Sairala" />
 
 
     </RelativeLayout>

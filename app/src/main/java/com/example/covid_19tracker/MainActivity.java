@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -43,24 +44,37 @@ public class MainActivity extends AppCompatActivity {
         kuolematValue = findViewById(R.id.kuolematValue);
         atiivisetValue = findViewById(R.id.AtiivisetValue);
         toipuneetValue = findViewById(R.id.ToipuneetValue);
-
+        Spinner list = findViewById(R.id.spinner);
+        CustomAdapter adapter = new CustomAdapter(this);
+        list.setAdapter(adapter);
         fetchdata();
 
     }
-
+    private String allCases,recoverdCases, deathsCases, aktiiviset;
+    //get request to the api data
     private void fetchdata() {
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "https://corona.lmao.ninja/v2/all";
+
+        String url = "https://covid19.mathdro.id/api    ";
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
-                    all.setText(jsonObject.getString("cases"));
-                    toipuneetValue.setText(jsonObject.getString("recovered"));
-                    atiivisetValue.setText(jsonObject.getString("active"));
-                    kuolematValue.setText(jsonObject.getString("deaths"));
+                    allCases =  jsonObject.getJSONObject("confirmed").getString("value");
+                    recoverdCases =  jsonObject.getJSONObject("recovered").getString("value");
+                    deathsCases =  jsonObject.getJSONObject("deaths").getString("value");
+
+                    aktiiviset = String.valueOf(
+                            Integer.valueOf(allCases) -(
+                                    Integer.valueOf(recoverdCases) + Integer.valueOf(deathsCases)
+                                    )
+                    );
+                    all.setText(allCases);
+                    toipuneetValue.setText(recoverdCases);
+                    atiivisetValue.setText(aktiiviset);
+                    kuolematValue.setText(deathsCases);
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -79,10 +93,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void sendMessage(View view) {
+    public void OhjeetActivity(View view) {
         Intent intent = new Intent(this, OhjeetActivity.class);
         startActivity(intent);
     }
+    public void LocationActivity(View view) {
+        Intent intent = new Intent(this, LocationActivity.class);
+        startActivity(intent);
+    }
+
 
 
 }

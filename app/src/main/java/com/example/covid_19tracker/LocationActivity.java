@@ -6,20 +6,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class OhjeetActivity extends AppCompatActivity {
+public class LocationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ohjeet);
+        setContentView(R.layout.activity_location);
     }
     public void MainActivity(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    public void LocationActivity(View view) {
-        Intent intent = new Intent(this, LocationActivity.class);
+    public void OhjeetActivity(View view) {
+        Intent intent = new Intent(this, OhjeetActivity.class);
         startActivity(intent);
     }
-
 }
