@@ -211,22 +211,26 @@
 
         <Button
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="50dp"
+            android:layout_marginTop="7dp"
         android:layout_marginStart="40dp"
         android:text="Tilastot"
             android:background="@null"
         android:layout_marginLeft="40dp"
+            android:textSize="10sp"
             android:drawableTop="@drawable/ic_baseline_tilasto"/>
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="100dp"
+            android:layout_height="50dp"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="70dp"
             android:background="@null"
+            android:layout_marginTop="7dp"
             android:drawableTop="@drawable/ic_baseline_ohjeet"
             android:onClick="OhjeetActivity"
-            android:text="Ohjeet" />
+            android:text="Ohjeet"
+            android:textSize="10sp"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -234,9 +238,11 @@
             android:layout_marginStart="280dp"
             android:layout_marginLeft="70dp"
             android:background="@null"
+            android:layout_marginTop="7dp"
             android:drawableTop="@drawable/ic_baseline_sairala"
             android:onClick="LocationActivity"
-            android:text="Sairala" />
+            android:text="Sairala"
+            android:textSize="10sp"/>
 
 
     </RelativeLayout>

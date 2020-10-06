@@ -1,11 +1,14 @@
 package com.example.covid_19tracker;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -31,14 +34,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
 
 public class MainActivity extends AppCompatActivity {
 
     //UI Views
-    TextView all, kuolematValue, atiivisetValue,toipuneetValue;
-    private int selectedCountryIndex;
-    private String selectedCountryName = "finland";
-    CustomAdapter adapter = new CustomAdapter(this);
+    TextView all, kuolematValue, aktiivisetValue,toipuneetValue;
+    public int pos = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,89 +51,65 @@ public class MainActivity extends AppCompatActivity {
         //init UI Views
         all = findViewById(R.id.allTv);
         kuolematValue = findViewById(R.id.kuolematValue);
-        atiivisetValue = findViewById(R.id.AtiivisetValue);
+        aktiivisetValue = findViewById(R.id.AtiivisetValue);
         toipuneetValue = findViewById(R.id.ToipuneetValue);
         Spinner list = findViewById(R.id.spinner);
 
+        //init new adapter and set its value to the spinner list
+        CustomAdapter adapter = new CustomAdapter(this);
         list.setAdapter(adapter);
-        list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 
+
+        //using the setonItemSelectedListener to activate the choosen country from the list
+        list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("on item", String.valueOf(position));
-                changedCountry = true;
-                selectedCountryIndex = position;
-                fetchdata();
-                return;
+                //index 0
+                if(position == 0) {
+                    pos = position;
+                    fetchdata();
+                }
+                //other index
+                else {
+                    pos = position;
+                    fetchdataFinland();
+                }
+
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                return;
+
             }
         });
 
-        fetchdata();
-
     }
-    private String allCases,recoverdCases, deathsCases, aktiiviset;
-    private JSONArray allCountries;
-    private String country;
-    private boolean changedCountry = false;
-    private String url = "https://covid19.mathdro.id/api";
-    //get request to the api data
+
+    //objects
+    private String allCases, recoverdCases, deathsCases, aktiiviset;
+    String url = "https://covid19.mathdro.id/api/";
+
+    //this methode to get the world statistics from the JSON file through api
     private void fetchdata() {
-        final RequestQueue queue = Volley.newRequestQueue(this);
-        String urlCountries = "https://covid19.mathdro.id/api/countries";
-
-        final StringRequest requestSelectCountry = new StringRequest(Request.Method.GET, urlCountries, new Response.Listener<String>() {
-            @Override
-
-            public void onResponse(String response) {
-                try {
-                    JSONObject jsonObject = new JSONObject(response.toString());
-                    allCountries = jsonObject.getJSONArray("countries");
-                        if(selectedCountryIndex !=0){
-                            country=allCountries.getJSONObject(selectedCountryIndex).getString("name");
-                            selectedCountryName = country;
-                            url = url + "/countries/" + selectedCountryName;
-                            Log.d("select country name ", country);
-                        }
-
-
-                } catch (JSONException e) {
-                    Log.d("error", "there is ");
-                    e.printStackTrace();
-                }
-            }
-        },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error)
-                    {
-                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-
+        RequestQueue queue = Volley.newRequestQueue(this);
         StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
 
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
-                    allCases =  jsonObject.getJSONObject("confirmed").getString("value");
-                    recoverdCases =  jsonObject.getJSONObject("recovered").getString("value");
-                    deathsCases =  jsonObject.getJSONObject("deaths").getString("value");
+                    allCases = jsonObject.getJSONObject("confirmed").getString("value");
+                    recoverdCases = jsonObject.getJSONObject("recovered").getString("value");
+                    deathsCases = jsonObject.getJSONObject("deaths").getString("value");
 
                     aktiiviset = String.valueOf(
-                            Integer.valueOf(allCases) -(
+                            Integer.valueOf(allCases) - (
                                     Integer.valueOf(recoverdCases) + Integer.valueOf(deathsCases)
                             )
                     );
                     all.setText(allCases);
                     toipuneetValue.setText(recoverdCases);
-                    atiivisetValue.setText(aktiiviset);
+                    aktiivisetValue.setText(aktiiviset);
                     kuolematValue.setText(deathsCases);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -143,27 +123,69 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
-        queue.add(adapter.requestCountries);
-        queue.add(requestSelectCountry);
-        queue.add(request);
-        if(changedCountry == true){
-            queue.add(request);
-            changedCountry = false;
-        }
 
+        queue.add(request);
+    }
+
+    //this methode to get the Finland statistics from the JSON file through api
+    private void fetchdataFinland() {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String urlFinland = url + "countries/finland";
+        StringRequest request = new StringRequest(Request.Method.GET, urlFinland, new Response.Listener<String>() {
+            @Override
+
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.toString());
+                    allCases = jsonObject.getJSONObject("confirmed").getString("value");
+                    recoverdCases = jsonObject.getJSONObject("recovered").getString("value");
+                    deathsCases = jsonObject.getJSONObject("deaths").getString("value");
+
+                    aktiiviset = String.valueOf(
+                            Integer.valueOf(allCases) - (
+                                    Integer.valueOf(recoverdCases) + Integer.valueOf(deathsCases)
+                            )
+                    );
+                    all.setText(allCases);
+                    toipuneetValue.setText(recoverdCases);
+                    aktiivisetValue.setText(aktiiviset);
+                    kuolematValue.setText(deathsCases);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error)
+                    {
+                        Toast.makeText(MainActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
+    }
+    public void putSharedPreference() {
+        SharedPreferences getPref = getSharedPreferences("value", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor putPref = getPref.edit();
+        putPref.putInt("countryIndex", pos);
+        putPref.commit();
 
     }
 
 
+
+    //these methods to change to other activities
     public void OhjeetActivity(View view) {
+        putSharedPreference();
+        Log.d("save value", "save");
         Intent intent = new Intent(this, OhjeetActivity.class);
         startActivity(intent);
     }
     public void LocationActivity(View view) {
+        putSharedPreference();
         Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
     }
-
-
 
 }
