@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity {
         toipuneetValue = findViewById(R.id.ToipuneetValue);
         Spinner list = findViewById(R.id.spinner);
 
+        //invite SharedPref method
+        putSharedPreference();
+
         //init new adapter and set its value to the spinner list
         CustomAdapter adapter = new CustomAdapter(this);
         list.setAdapter(adapter);
@@ -165,6 +168,8 @@ public class MainActivity extends AppCompatActivity {
 
         queue.add(request);
     }
+
+
     public void putSharedPreference() {
         SharedPreferences getPref = getSharedPreferences("value", Activity.MODE_PRIVATE);
         SharedPreferences.Editor putPref = getPref.edit();
