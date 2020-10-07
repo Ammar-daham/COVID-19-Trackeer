@@ -56,15 +56,14 @@ public class MainActivity extends AppCompatActivity {
         toipuneetValue = findViewById(R.id.ToipuneetValue);
         Spinner list = findViewById(R.id.spinner);
 
-<<<<<<< HEAD
         //invite SharedPref method
         putSharedPreference(pos);
-=======
+
         list.setAdapter(new ArrayAdapter<String>(
                 this,android.R.layout.simple_list_item_1,
                 Singleton.getInstance().getCountries2()
         ));
->>>>>>> 95220fce8b87be609a9100dda6dd52973ee04383
+
 
 
 
