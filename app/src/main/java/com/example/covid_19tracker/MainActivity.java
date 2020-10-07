@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     //UI Views
     TextView all, kuolematValue, aktiivisetValue,toipuneetValue;
-    public int pos = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +56,6 @@ public class MainActivity extends AppCompatActivity {
         toipuneetValue = findViewById(R.id.ToipuneetValue);
         Spinner list = findViewById(R.id.spinner);
 
-        //invite SharedPref method
-        putSharedPreference(pos);
 
         list.setAdapter(new ArrayAdapter<String>(
                 this,android.R.layout.simple_list_item_1,
@@ -73,12 +71,10 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 //index 0
                 if(position == 0) {
-                    pos = position;
                     fetchdata();
                 }
                 //other index
                 else {
-                    pos = position;
                     fetchdataFinland();
                 }
 
@@ -175,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void putSharedPreference(int x) {
-        pos = x;
         SharedPreferences getPref = getSharedPreferences("value", Activity.MODE_PRIVATE);
         SharedPreferences.Editor putPref = getPref.edit();
         putPref.putInt("countryIndex", x);
@@ -186,13 +181,11 @@ public class MainActivity extends AppCompatActivity {
 
     //these methods to change to other activities
     public void OhjeetActivity(View view) {
-        putSharedPreference(pos);
         Log.d("save value", "save");
         Intent intent = new Intent(this, OhjeetActivity.class);
         startActivity(intent);
     }
     public void LocationActivity(View view) {
-        putSharedPreference(pos);
         Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
     }
