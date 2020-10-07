@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Spinner list = findViewById(R.id.spinner);
 
         //invite SharedPref method
-        putSharedPreference();
+        putSharedPreference(pos);
 
         //init new adapter and set its value to the spinner list
         CustomAdapter adapter = new CustomAdapter(this);
@@ -170,25 +170,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void putSharedPreference() {
+    public void putSharedPreference(int x) {
+        pos = x;
         SharedPreferences getPref = getSharedPreferences("value", Activity.MODE_PRIVATE);
         SharedPreferences.Editor putPref = getPref.edit();
-        putPref.putInt("countryIndex", pos);
+        putPref.putInt("countryIndex", x);
         putPref.commit();
 
     }
 
 
-
     //these methods to change to other activities
     public void OhjeetActivity(View view) {
-        putSharedPreference();
+        putSharedPreference(pos);
         Log.d("save value", "save");
         Intent intent = new Intent(this, OhjeetActivity.class);
         startActivity(intent);
     }
     public void LocationActivity(View view) {
-        putSharedPreference();
+        putSharedPreference(pos);
         Intent intent = new Intent(this, LocationActivity.class);
         startActivity(intent);
     }

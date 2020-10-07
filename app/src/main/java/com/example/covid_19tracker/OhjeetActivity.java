@@ -11,6 +11,7 @@ import android.view.View;
 
 public class OhjeetActivity extends AppCompatActivity {
 
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,13 @@ public class OhjeetActivity extends AppCompatActivity {
     }
 
     public void MainActivity(View view) {
+        int pos = 0;
+        SharedPreferences getPrf = getSharedPreferences("value", Activity.MODE_PRIVATE);
+        pos = getPrf.getInt("countryIndex", 0);
+
+        MainActivity main = new MainActivity();
+        main.putSharedPreference(pos);
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
