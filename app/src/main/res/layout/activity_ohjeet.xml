@@ -184,7 +184,7 @@
             android:layout_marginTop="7dp"
             android:drawableTop="@drawable/ic_baseline_sairala"
             android:onClick="LocationActivity"
-            android:text="Sairala"
+            android:text="Sairaala"
             android:textSize="10sp"/>
 
 
