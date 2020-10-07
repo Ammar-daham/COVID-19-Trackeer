@@ -132,7 +132,7 @@
                     android:textColor="@color/lightBlue"
                     android:textAlignment="center"
                     android:onClick="Luelisaa"
-                    android:text="https://thl.fi"
+                    android:text="https://www.omaolo.fi/"
                     android:textSize="16sp"/>
 
             </LinearLayout>
