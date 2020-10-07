@@ -19,7 +19,7 @@ public class OhjeetActivity extends AppCompatActivity {
     }
 
     public void Luelisaa(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://thl.fi"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.omaolo.fi/"));
         startActivity(intent);
     }
 
